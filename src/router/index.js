@@ -19,6 +19,18 @@ export default new Router({
           path: '/home',
           name: 'home',
           component: resolve => require.ensure([], () => resolve(require('../pages/home.vue')), 'home')
+        }, {
+          path: '/movies',
+          name: 'movies',
+          component: resolve => require.ensure([], () => resolve(require('../pages/movie.vue')), 'movies')
+        }, {
+          path: '/movies/:tag',
+          name: 'subjects',
+          component: resolve => require.ensure([], () => resolve(require('../pages/subjects.vue')), 'subjects')
+        }, {
+          path: '/books',
+          name: 'books',
+          component: resolve => require.ensure([], () => resolve(require('../pages/book.vue')), 'books')
         }
       ]
     }

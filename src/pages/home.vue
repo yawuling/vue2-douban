@@ -27,7 +27,7 @@ export default {
     onInfinite () {
       setTimeout(() => {
         this.loadMore()
-        // this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
       }, 1000)
     },
     ...mapActions([

@@ -7,12 +7,12 @@
         </router-link>
         <nav>
           <ul>
-            <li><a href="" style="color: #2384E8;">电影</a></li>
-            <li><a href="" style="color: #9F7860;">图书</a></li>
+            <li><router-link :to="{ name: 'movies' }" style="color: #2384E8;">电影</router-link></li>
+            <li><router-link :to="{ name: 'books' }" style="color: #9F7860;">图书</router-link></li>
             <li><a href="" style="color: #E4A813;">广播</a></li>
             <li><a href="" style="color: #2AB8CC;">小组</a></li>
           </ul>
-          <span></span>
+          <span @click="showSearch"></span>
         </nav>
       </div>
     </header>
@@ -21,7 +21,12 @@
 
 <script>
 export default {
-  name: 'header-bar'
+  name: 'header-bar',
+  methods: {
+    showSearch: function () {
+      this.$emit('showSearch')
+    }
+  }
 }
 </script>
 

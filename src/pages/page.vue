@@ -1,18 +1,30 @@
 <template>
   <div>
-    <header-bar></header-bar>
+    <header-bar @showSearch="changeShowSearch"></header-bar>
     <div class="page">
       <router-view></router-view>
     </div>
+    <search v-show="isShowSearch" @hideSearch="changeShowSearch"></search>
   </div>
 </template>
 
 <script>
 import headerBar from '../components/headerBar.vue'
+import search from './search'
 
 export default {
   name: 'page',
-  components: { headerBar }
+  data () {
+    return {
+      isShowSearch: false
+    }
+  },
+  components: { headerBar, search },
+  methods: {
+    changeShowSearch: function() {
+      this.isShowSearch = !this.isShowSearch
+    }
+  }
 }
 </script>
 

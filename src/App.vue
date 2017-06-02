@@ -12,6 +12,7 @@ export default {
 
 <style lang="less">
 body{
+  font-family: "Helvetica Neue",Helvetica,Roboto,Arial,sans-serif;
   font-size: 12px;
 }
 ul, li, a, h1{
