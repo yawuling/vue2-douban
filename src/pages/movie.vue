@@ -4,7 +4,7 @@
     <scroller title="即将上映" type="picture" tag="coming_soon" :items="comingMovies"></scroller>
     <scroller title="Top电影" type="picture" tag="top250" :items="topMovies"></scroller>
     <scroller title="发现好电影" type="label" :items="moviesTag"></scroller>
-    <classification :items="classification"></classification>
+    <classification :items="classification" type="movie"></classification>
     <download></download>
   </div>
 </template>

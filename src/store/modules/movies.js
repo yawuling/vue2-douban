@@ -113,21 +113,6 @@ const mutations = {
       default:
         state.hotMovies = payload.res
     }
-  },
-  getSubjects (state, payload) {
-    state.start = 18
-    state.subjects = payload.res
-  },
-  loadMoreSubjects (state, payload) {
-    state.start += 18
-    state.subjects = state.subjects.concat(payload.res)
-  },
-  setMovieTag (state, payload) {
-    state.tag = payload.tag
-  },
-  clearSubjects (state) {
-    state.start = 0
-    state.subjects = []
   }
 }
 
@@ -150,31 +135,6 @@ const actions = {
         tag: 'topMovies',
         res: res.body.subjects
       })
-    })
-  },
-  getSubjects ({ commit, state }, payload) {
-    return new Promise((resolve, reject) => {
-      if (payload.tag !== 'in_theaters' && payload.tag !== 'coming_soon' && payload.tag !== 'top250') {
-        Vue.http.jsonp('https://api.douban.com/v2/movie/search?tag=' +
-          state.tag.substr(0, state.tag.length - 2) + '&count=18').then(res => {
-            commit('getSubjects', {
-              res: res.body.subjects
-            })
-            resolve()
-          }, () => {
-            reject()
-          })
-      } else {
-        Vue.http.jsonp('https://api.douban.com/v2/movie/' +
-          payload.tag + '?count=18').then(res => {
-            commit('getSubjects', {
-              res: res.body.subjects
-            })
-            resolve()
-          }, () => {
-            reject()
-          })
-      }
     })
   },
   loadMoreSubjects ({ commit, state }, payload) {

@@ -36,9 +36,15 @@ export default {
   components: { score },
   methods: {
     setTag: function () {
-      this.$store.commit('setMovieTag', {
-        tag: this.title
-      })
+      if (this.tag === 'hotfiction' || this.tag === 'hotnonfiction') {
+        this.$store.commit('setBookTag', {
+          tag: this.title
+        })
+      } else {
+        this.$store.commit('setMovieTag', {
+          tag: this.title
+        })
+      }
     }
   }
 }

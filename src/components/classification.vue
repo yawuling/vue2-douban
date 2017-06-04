@@ -13,12 +13,18 @@
 <script>
 export default {
   name: 'classification',
-  props: ['items'],
+  props: ['items', 'type'],
   methods: {
     setTag: function (name) {
-      this.$store.commit('setMovieTag', {
-        tag: name + '电影'
-      })
+      if (this.type === 'book') {
+        this.$store.commit('setBookTag', {
+          tag: name
+        })
+      } else {
+        this.$store.commit('setMovieTag', {
+          tag: name + '电影'
+        })
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
   <div class="book-card">
-    <scroller title="最受关注图书 | 虚构类" type="picture" :items="fiction"></scroller>
-    <scroller title="最受关注图书 | 非虚构类" type="picture" :items="nonfiction"></scroller>
+    <scroller title="最受关注图书 | 虚构类" type="picture" tag="hotfiction" :items="fiction"></scroller>
+    <scroller title="最受关注图书 | 非虚构类" type="picture" tag="hotnonfiction" :items="nonfiction"></scroller>
     <scroller title="发现好图书" type="label" :items="booksTag"></scroller>
-    <classification :items="classification"></classification>
+    <classification :items="classification" type="book"></classification>
     <download></download>
   </div>
 </template>

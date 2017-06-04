@@ -3,6 +3,9 @@ import Vue from 'vue'
 const state = {
   fiction: [],
   nonfiction: [],
+  tagBooks: [],
+  start: 0,
+  tag: '',
   booksTag: [
     {
       title: '小波看书',
@@ -39,18 +42,43 @@ const state = {
     }
   ],
   classification: [
-    '小说',
-    '爱情',
-    '历史',
-    '外国文学',
-    '青春',
-    '励志',
-    '随笔',
-    '传记',
-    '推理',
-    '旅行',
-    '奇幻',
-    '经管'
+    {
+      title: '小说',
+      link: 'novel'
+    }, {
+      title: '爱情',
+      link: 'love'
+    }, {
+      title: '历史',
+      link: 'history'
+    }, {
+      title: '外国文学',
+      link: 'foreign'
+    }, {
+      title: '青春',
+      link: 'youth'
+    }, {
+      title: '励志',
+      link: 'motivation'
+    }, {
+      title: '随笔',
+      link: 'essay'
+    }, {
+      title: '传记',
+      link: 'bio'
+    }, {
+      title: '推理',
+      link: 'detective'
+    }, {
+      title: '旅行',
+      link: 'travel'
+    }, {
+      title: '奇幻',
+      link: 'fantasy'
+    }, {
+      title: '经营',
+      link: 'business'
+    }
   ]
 }
 
@@ -66,6 +94,17 @@ const mutations = {
       default:
         state.fiction = payload.res
     }
+  },
+  loadMoreTagBooks (state, payload) {
+    state.start += 18
+    state.tagBooks = state.tagBooks.concat(payload.res)
+  },
+  setBookTag (state, payload) {
+    state.tag = payload.tag
+  },
+  clearBooks (state) {
+    state.start = 0
+    state.tagBooks = []
   }
 }
 
@@ -82,6 +121,25 @@ const actions = {
         tag: 'nonfiction',
         res: res.body.books
       })
+    })
+  },
+  loadMoreTagBooks ({ commit, state }) {
+    return new Promise((resolve, reject) => {
+      let tag = state.tag
+      if (tag === '最受欢迎图书 | 虚构类' || tag === '最受欢迎图书 | 非虚构类') {
+        tag = tag.substr(10, tag.length - 10)
+      }
+      Vue.http.jsonp('https://api.douban.com/v2/book/search?tag=' +
+        tag + '&start=' + state.start + '&count=18').then(res => {
+          if (res.body.books.length > 0) {
+            commit('loadMoreTagBooks', {
+              res: res.body.books
+            })
+            resolve()
+          } else {
+            reject()
+          }
+        })
     })
   }
 }

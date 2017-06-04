@@ -29,7 +29,6 @@ export default {
       'clearSubjects'
     ]),
     ...mapActions([
-      'getSubjects',
       'loadMoreSubjects'
     ]),
     onInfinite () {

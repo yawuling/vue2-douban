@@ -24,13 +24,13 @@ export default new Router({
           name: 'movies',
           component: resolve => require.ensure([], () => resolve(require('../pages/movie.vue')), 'movies')
         }, {
-          path: '/movies/:tag',
-          name: 'subjects',
-          component: resolve => require.ensure([], () => resolve(require('../pages/subjects.vue')), 'subjects')
-        }, {
           path: '/books',
           name: 'books',
           component: resolve => require.ensure([], () => resolve(require('../pages/book.vue')), 'books')
+        }, {
+          path: '/subjects/:tag',
+          name: 'subjects',
+          component: resolve => require.ensure([], () => resolve(require('../pages/subjects.vue')), 'subjects')
         }
       ]
     }
