@@ -1,7 +1,8 @@
 <template>
   <div class="subjects">
     <div class="subjects-title">{{ tag }}</div>
-    <movie-list :items="subjects"></movie-list>
+    <movie-list :items="subjects" v-if="type === 'movie'"></movie-list>
+    <book-list :items="subjects" v-else></book-list>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
       <load-more  slot="spinner"></load-more>
       <span slot="no-more"></span>
@@ -12,16 +13,18 @@
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
 import movieList from '../components/movieList'
+import bookList from '../components/bookList'
 import infiniteLoading from 'vue-infinite-loading'
 import loadMore from '../components/loadMore'
 
 export default {
   namne: 'subjects',
-  components: { movieList, infiniteLoading, loadMore },
+  components: { movieList, infiniteLoading, loadMore, bookList },
   computed: {
     ...mapState({
-      tag: state => state.movies.tag,
-      subjects: state => state.movies.subjects
+      tag: state => state.subjects.tag,
+      type: state => state.subjects.type,
+      subjects: state => state.subjects.subjects
     })
   },
   methods: {
@@ -58,6 +61,7 @@ export default {
 
   .subjects-title{
     margin-top: 0.32rem;
+    margin-bottom: 6px;
     padding-left: 7.5*0.04rem;
     font-size: 24px;
   }

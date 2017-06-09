@@ -4,9 +4,6 @@ const state = {
   hotMovies: [],
   comingMovies: [],
   topMovies: [],
-  subjects: [],
-  tag: '',
-  start: 0,
   moviesTag: [
     {
       title: '同时入选IMDB250和豆瓣电影250的电影',
@@ -135,35 +132,6 @@ const actions = {
         tag: 'topMovies',
         res: res.body.subjects
       })
-    })
-  },
-  loadMoreSubjects ({ commit, state }, payload) {
-    return new Promise((resolve, reject) => {
-      if (payload.tag !== 'in_theaters' && payload.tag !== 'coming_soon' && payload.tag !== 'top250') {
-        Vue.http.jsonp('https://api.douban.com/v2/movie/search?tag=' +
-          state.tag.substr(0, state.tag.length - 2) + '&start=' + state.start + '&count=18').then(res => {
-            if (res.body.subjects.length > 0) {
-              commit('loadMoreSubjects', {
-                res: res.body.subjects
-              })
-              resolve()
-            } else {
-              reject()
-            }
-          })
-      } else {
-        Vue.http.jsonp('https://api.douban.com/v2/movie/' +
-          payload.tag + '?start=' + state.start + '&count=18').then(res => {
-            if (res.body.subjects.length > 0) {
-              commit('loadMoreSubjects', {
-                res: res.body.subjects
-              })
-              resolve()
-            } else {
-              reject()
-            }
-          })
-      }
     })
   }
 }

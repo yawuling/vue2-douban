@@ -7,11 +7,11 @@
     <div class="content">
       <ul class="items" v-if="type === 'picture'">
         <li v-for="item in items">
-          <a>
+          <router-link :to="{ name: 'detail', params: { id: item.id} }">
             <div class="item-poster" :style="{ 'background-image': 'url(' + item.images.large + ')'}"></div>
             <span class="item-title">{{item.title}}</span>
             <score :score="item.rating.average"></score>
-          </a>
+          </router-link>
         </li>
       </ul>
       <ul class="movie-label" v-else>
@@ -29,22 +29,29 @@
 
 <script>
 import score from '../components/score'
+import { mapMutations } from 'vuex'
 
 export default {
   name: 'scroller',
   props: ['title', 'type', 'items', 'tag'],
   components: { score },
   methods: {
+    ...mapMutations([
+      'setSubjectTag'
+    ]),
     setTag: function () {
-      if (this.tag === 'hotfiction' || this.tag === 'hotnonfiction') {
-        this.$store.commit('setBookTag', {
-          tag: this.title
-        })
-      } else {
-        this.$store.commit('setMovieTag', {
-          tag: this.title
-        })
-      }
+      this.setSubjectTag({
+        tag: this.title
+      })
+      // if (this.tag === 'hotfiction' || this.tag === 'hotnonfiction') {
+      //   this.$store.commit('setBookTag', {
+      //     tag: this.title
+      //   })
+      // } else {
+      //   this.$store.commit('setMovieTag', {
+      //     tag: this.title
+      //   })
+      // }
     }
   }
 }

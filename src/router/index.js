@@ -31,6 +31,10 @@ export default new Router({
           path: '/subjects/:tag',
           name: 'subjects',
           component: resolve => require.ensure([], () => resolve(require('../pages/subjects.vue')), 'subjects')
+        }, {
+          path: '/detail/:id',
+          name: 'detail',
+          component: resolve => require.ensure([], () => resolve(require('../pages/detail.vue')), 'detail')
         }
       ]
     }

@@ -2,7 +2,7 @@
   <section id="recommend-feed">
     <ul>
       <li v-for="item in items">
-        <a href="" class="feed-item">
+        <a :href="item.alt" class="feed-item">
           <div class="feed-content">
             <div class="feed-info">
               <h3>{{item.title}}</h3>

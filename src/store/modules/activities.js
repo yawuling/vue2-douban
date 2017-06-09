@@ -7,9 +7,6 @@ const state = {
 }
 
 const mutations = {
-  getEvents (state, payload) {
-    state.events = payload.res;
-  },
   loadMore (state, payload) {
     state.sum += 10
     state.events = state.events.concat(payload.res)
@@ -20,17 +17,17 @@ const mutations = {
 }
 
 const actions = {
-  getEvents ({ commit }) {
-    Vue.http.jsonp('https://api.douban.com/v2/event/list?loc=108288&count=10').then(res => {
-      commit('getEvents', {
-        res: res.body.events
-      })
-    })
-  },
   loadMore ({ commit, state }) {
-    Vue.http.jsonp('https://api.douban.com/v2/event/list?loc=108288&start=' + state.sum + '$count=10').then(res => {
-      commit('loadMore', {
-        res: res.body.events
+    return new Promise((resolve,reject) => {
+      Vue.http.jsonp('https://api.douban.com/v2/event/list?loc=108288&start=' + state.sum + '&count=10').then(res => {
+        if (res.body.events.length > 0) {
+          commit('loadMore', {
+            res: res.body.events
+          })
+          resolve()
+        } else {
+          reject()
+        }
       })
     })
   },

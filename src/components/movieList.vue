@@ -1,11 +1,11 @@
 <template>
   <ul class="subjects-content">
     <li v-for="item in items">
-      <a>
+      <router-link :to="{ name: 'detail', params: { id: item.id } }">
         <div class="item-poster" :style="{ 'background-image': 'url(' + item.images.large + ')'}"></div>
         <span class="item-title">{{item.title}}</span>
         <score :score="item.rating.average"></score>
-      </a>
+      </router-link>
     </li>
   </ul>
 </template>

@@ -4,7 +4,7 @@
     <scroller title="即将上映" type="picture" tag="coming_soon" :items="comingMovies"></scroller>
     <scroller title="Top电影" type="picture" tag="top250" :items="topMovies"></scroller>
     <scroller title="发现好电影" type="label" :items="moviesTag"></scroller>
-    <classification :items="classification" type="movie"></classification>
+    <classification :items="classification"></classification>
     <download></download>
   </div>
 </template>
@@ -13,7 +13,7 @@
 import scroller from '../components/scroller'
 import classification from '../components/classification'
 import download from '../components/download'
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 
 export default {
   name: 'movie',
@@ -30,10 +30,16 @@ export default {
   methods: {
     ...mapActions([
       'getMovies'
+    ]),
+    ...mapMutations([
+      'setSubjectType'
     ])
   },
   created () {
     this.getMovies()
+    this.setSubjectType({
+      type: 'movie'
+    })
   }
 }
 </script>

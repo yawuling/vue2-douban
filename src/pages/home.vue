@@ -4,6 +4,7 @@
     <list :items="events"></list>
     <infinite-loading :on-infinite="onInfinite" ref="infiniteLoading">
       <load-more  slot="spinner"></load-more>
+      <span slot="no-more"></span>
     </infinite-loading>
   </div>
 </template>
@@ -24,19 +25,18 @@ export default {
     })
   },
   methods: {
+    ...mapActions([
+      'loadMore'
+    ]),
     onInfinite () {
       setTimeout(() => {
-        this.loadMore()
-        this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        this.loadMore().then(() => {
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:loaded')
+        }, () => {
+          this.$refs.infiniteLoading.$emit('$InfiniteLoading:complete')
+        })
       }, 1000)
-    },
-    ...mapActions([
-      'loadMore',
-      'getEvents'
-    ])
-  },
-  created() {
-    this.getEvents()
+    }
   }
 }
 </script>

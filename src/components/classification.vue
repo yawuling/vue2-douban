@@ -11,18 +11,26 @@
 </template>
 
 <script>
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'classification',
-  props: ['items', 'type'],
+  props: ['items'],
+  computed: {
+    type: state => state.subjects.type
+  },
   methods: {
+    ...mapMutations([
+      'setSubjectTag'
+    ]),
     setTag: function (name) {
-      if (this.type === 'book') {
-        this.$store.commit('setBookTag', {
-          tag: name
+      if (this.type === 'movie') {
+        this.setSubjectTag({
+          tag: name + '电影'
         })
       } else {
-        this.$store.commit('setMovieTag', {
-          tag: name + '电影'
+        this.setSubjectTag({
+          tag: name
         })
       }
     }
